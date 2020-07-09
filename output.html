@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUTPUT</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body onload="fetchstudents()">
+
+    <div class="container">
+        <div class="jumbotron">
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                        <h5 class="modal-title text-info" id="exampleModalLabel">Edit student info</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <form id="myForm2">
+                                <h2 class="text-center mb-4 text-info">student <small>management system</small></h2>
+                                <h4 class="mb-4 text-info">Student Details</h4>
+                                <div class="form-group">
+                                    <label for="studentIdEdit">Student-Id</label>
+                                    <input type="number" class="form-control" id="studentIdEdit" placeholder="Student-Id" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstNameEdit">FirstName</label>
+                                    <input type="text" class="form-control" id="firstNameEdit" placeholder="FirstName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastNameEdit">LastName</label>
+                                    <input type="text" class="form-control" id="lastNameEdit" placeholder="LastName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="genderEdit">Gender</label>
+                                    <select class="form-control" id="genderEdit">
+                                        <option value="male">Male</option>
+                                        <option value="female">female</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ageEdit">Age</label>
+                                    <input type="number" class="form-control" id="ageEdit" placeholder="Age">
+                                </div>
+                                <div class="form-group">
+                                    <label for="batchEdit">Batch</label>
+                                    <input type="text" class="form-control" id="batchEdit" placeholder="Batch">
+                                </div>
+                                <div class="form-group">
+                                    <label for="numberEdit">Mobile-Number</label>
+                                    <input type="number" class="form-control" id="numberEdit" placeholder="Mobile-Number">
+                                </div>  
+                                 
+                                <input type="hidden" id="indexItem">
+    
+                                <!-- <button onclick=" event.preventDefault();saveStudent()" class="btn btn-primary btn-lg">SAVE</button>                    -->
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button onclick="event.preventDefault();updateStudent()" id="updateInfo" class="btn btn-primary" data-dismiss="modal">Update</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-center mb-5 text-info">Here is student information.</h2>           
+            <div class="input-group mb-3 row">
+                <input type="text" class="form-control col-lg-3" id="searchInput" placeholder="Search...">
+                <div class="input-group-append">
+                    <button class="btn btn-success" onclick="event.preventDefault();searchStudent()">Search</button>  
+                </div>
+                <!-- <div class="col-lg-2">
+                    <button class="btn btn-success" onclick="event.preventDefault();sortStudentIdAsc()">ID-SORT</button>  
+                </div> -->
+                <div class="btn-group col-lg-3">
+                    <button type="button" class="btn btn-primary">ID-SORT</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" onclick="event.preventDefault();sortStudentIdAsc()"></button>
+                    <div class="dropup">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" onclick="event.preventDefault();sortStudentIdDsc()"></button>
+                    </div>
+                </div>
+                <div class="btn-group col-lg-3">
+                    <button type="button" class="btn bg-warning">AGE-SORT</button>
+                    <button type="button" class="btn bg-warning dropdown-toggle dropdown-toggle-split" onclick="event.preventDefault();sortStudentAgeAsc()"></button>
+                    <div class="dropup">
+                        <button type="button" class="btn bg-warning dropdown-toggle dropdown-toggle-split" onclick="event.preventDefault();sortStudentAgeDsc()"></button>
+                    </div>
+                </div>
+                <div class="btn-group col-lg-3">
+                    <button type="button" class="btn bg-success">BATCH-SORT</button>
+                    <button type="button" class="btn bg-success dropdown-toggle dropdown-toggle-split" onclick="event.preventDefault();sortStudentBatchAsc()"></button>
+                    <div class="dropup">
+                        <button type="button" class="btn bg-success dropdown-toggle dropdown-toggle-split" onclick="event.preventDefault();sortStudentBatchDsc()"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="studentOutput" class="row mb-5">    
+            </div>
+            
+            <div class="row">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item"><a class="page-link" id="Prev" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" id="1" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" id="2" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" id="3" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
